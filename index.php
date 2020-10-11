@@ -15,12 +15,12 @@ if (!empty($_POST) && isset($_POST['btnContact'])) {
 
     if (empty($firstname))
         $errors['firstname'] = 'Required';
-    if(strlen($lastname) > 45)
-        $errors['lastname'] = 'Lastname too long';
+    if(strlen($firstname) > 45)
+        $errors['firstname'] = 'Lastname too long';
     if (empty($lastname))
         $errors['lastname'] = 'Required';
     if(strlen($lastname) > 45)
-        $errors['firstname'] = 'Firstname too long';
+        $errors['lastname'] = 'Firstname too long';
 
 
     var_dump($errors);
@@ -74,14 +74,12 @@ var_dump($friends);
             <span style="color:red;"><?= $errors['firstname'] ?></span>
             <?php endif; ?>
         </div>
-        </div>
         <div class="form-group">
             <label for="lastname">Enter your lastname : </label>
             <input type="text" name="user_lastname" class="form-control" id="formGroupExampleInput2" placeholder="FERRIER" required>
             <?php if (isset($errors['lastname'])): ?>
             <span style="color:red;"><?= $errors['lastname'] ?></span>
             <?php endif; ?>
-        </div>
         </div>
         <button type="submit" value="send" name="btnContact">send</button>
     </form>
