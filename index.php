@@ -15,22 +15,26 @@ if (!empty($_POST) && isset($_POST['btnContact'])) {
 
     if (empty($firstname))
         $errors['firstname'] = 'Required';
+    if(strlen($lastname) > 45)
+        $errors['lastname'] = 'Lastname too long';
     if (empty($lastname))
         $errors['lastname'] = 'Required';
+    if(strlen($lastname) > 45)
+        $errors['firstname'] = 'Firstname too long';
 
 
     var_dump($errors);
     if (empty($errors)) {
 
-echo $firstname;
+        echo $firstname;
 
-echo $lastname;// get the data from a form
-$query = "INSERT INTO friend (firstname, lastname) VALUES (:firstname, :lastname)";
-$statement = $pdo->prepare($query);
-$statement->bindValue(':firstname', $firstname, \PDO::PARAM_STR);
-$statement->bindValue(':lastname', $lastname, \PDO::PARAM_STR);
+        echo $lastname;
+        $query = "INSERT INTO friend (firstname, lastname) VALUES (:firstname, :lastname)";
+        $statement = $pdo->prepare($query);
+        $statement->bindValue(':firstname', $firstname, \PDO::PARAM_STR);
+        $statement->bindValue(':lastname', $lastname, \PDO::PARAM_STR);
 
-$statement->execute();
+        $statement->execute();
 
         header("Location: index.php");
 
@@ -65,7 +69,7 @@ var_dump($friends);
     <form action="index.php" method="post">
         <div class="form-group">
             <label for="firstname">Enter your firstname : </label>
-            <input type="text"  name="user_firstname" class="form-control" id="firstname" placeholder="Jhon">
+            <input type="text"  name="user_firstname" class="form-control" id="firstname" placeholder="Jhon" required>
             <?php if (isset($errors['firstname'])): ?>
             <span style="color:red;"><?= $errors['firstname'] ?></span>
             <?php endif; ?>
@@ -73,7 +77,7 @@ var_dump($friends);
         </div>
         <div class="form-group">
             <label for="lastname">Enter your lastname : </label>
-            <input type="text" name="user_lastname" class="form-control" id="formGroupExampleInput2" placeholder="FERRIER">
+            <input type="text" name="user_lastname" class="form-control" id="formGroupExampleInput2" placeholder="FERRIER" required>
             <?php if (isset($errors['lastname'])): ?>
             <span style="color:red;"><?= $errors['lastname'] ?></span>
             <?php endif; ?>
